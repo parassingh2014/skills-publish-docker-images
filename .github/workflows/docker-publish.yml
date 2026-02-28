@@ -1,4 +1,4 @@
-name: Build and Publish Docker Image
+name: Publish Docker image
 
 on:
   push:
@@ -12,8 +12,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  push_to_registry:
     runs-on: ubuntu-latest
+
     steps:
       - name: Extract metadata for Docker
         id: meta
@@ -26,4 +27,5 @@ jobs:
         with:
           context: .
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
